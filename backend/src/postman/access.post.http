@@ -1,0 +1,66 @@
+@url_dev=http://localhost:3056/v1/api
+# ##
+# POST {{url_dev}}/app/question/newQuestion
+# Content-Type: application/json
+
+# {
+#     "content": "2",
+#     "answers": ["Answer 1", "Answer 2", "Answer 3"],
+#     "correctAnswers": ["Answer 2"]
+# }
+
+POST {{url_dev}}/app/question/newQuestion
+Content-Type: application/json
+
+{
+    "content": "A developer must create a DrawList class that provides capabilities defined in the Sortable and Drawable interfaces. public interface Sortable { void sort(); } public interface Drawable { void draw(); } Which is the correct implementation?",
+    "answers": [
+        "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}",
+        "Public class DrawList extends Sortable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}",
+        "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}",
+        "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/ } public void draw() { /* implementation */}"
+    ],
+    "correctAnswers": [
+        "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}"
+    ]
+}
+
+
+
+
+
+
+
+# {
+#     "content": "Which three steps allow a custom SVG to be included in a Lightning web component? Choose 3 answers.",
+#     "image": { "data": "<base64_encoded_data>", "contentType": "image/png" },
+#     "answers": [
+#     "Upload the SVG as a static resource.", 
+#     "Import the static resource and provide a getter for it in JavaScript.",
+#     "Reference the getter in the HTML template. ", 
+#     "Reference the import in the HTML template.",
+#     "Import the SVG as a content asset file."
+#     ],
+#     "correctAnswers": [
+#     "Upload the SVG as a static resource.", 
+#     "Import the static resource and provide a getter for it in JavaScript.",
+#     "Import the SVG as a content asset file."
+#     ],
+#     "answerImages": [
+#         { "data": "<base64_encoded_data>", "contentType": "image/jpeg" },
+#         { "data": "<base64_encoded_data>", "contentType": "image/jpeg" }
+#     ]
+# }
+
+
+
+
+# POST {{url_dev}}/app/getquestion
+# Content-Type: application/json
+
+# {
+#     "limit": 2
+# }
+
+# GET {{url_dev}}/app/getquestion1
+
