@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "poppins", sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fff;
+}
+.main-container {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 100%;
+    clear: both;
+}
+#page,
+.container {
+    max-width: 1050px;
+    min-width: 240px;
+    overflow: visible;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* import.css */
+
+textarea {
+    width: 100%; 
+    height: 200px; 
+    padding: 10px; 
+    font-size: 16px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    resize: vertical; /* Cho phép điều chỉnh kích thước theo chiều dọc */
+  }
+  
+  textarea:focus {
+    border-color: #007bff; 
+    outline: none; 
+  }
+  
+  .btn-submit {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff; 
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; 
+  }
+  
+  #sumbit:hover {
+    background-color: #0056b3;
+  }
+  
