@@ -28,15 +28,25 @@ function Import() {
     const formatData = () => {
         // Parse text thành JSON
         const jsonData = JSON.parse(text);
-        // Trích xuất dữ liệu
-        const { content, answers, correctAnswers } = jsonData;
-        // Tạo dữ liệu mới
-        const newData = {
-            content,
-            answers,
-            correctAnswers: answers.filter((answer, index) => correctAnswers.includes(index))
-        };
-        return newData;
+        
+        // Kiểm tra nếu giá trị không phải là mảng thì trả về mảng rỗng
+        if (!Array.isArray(jsonData)) {
+            return [];
+        }
+        
+        // Xử lý từng phần tử trong mảng
+        const formattedArray = jsonData.map(item => {
+            // Trích xuất dữ liệu từ từng phần tử
+            const { content, answers, correctAnswers } = item;
+            // Tạo dữ liệu mới cho từng phần tử
+            return {
+                content,
+                answers,
+                correctAnswers: answers.filter((answer, index) => correctAnswers.includes(index))
+            };
+        });
+        
+        return formattedArray;
     };
 
     return (
@@ -62,3 +72,31 @@ function Import() {
 }
 
 export default Import;
+
+// chatgpt promot
+// nhiệm vụ của bạn là format data. Hãy format theo định dạng với các dữ liệu định nghĩa, correctAnswers là số và bắt đầu từ 0
+// [
+// {
+//     "content": "A developer must create a DrawList class that provides capabilities defined in the Sortable and Drawable interfaces. public interface Sortable { void sort(); } public interface Drawable { void draw(); } Which is the correct implementation?",
+//     "answers": [
+//         "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}",
+//         "Public class DrawList extends Sortable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}",
+//         "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}",
+//         "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/ } public void draw() { /* implementation */}"
+//     ],
+//     "correctAnswers": [
+//        1,2,3
+//     ]
+// },{
+//     "content": "A developer must create a DrawList class that provides capabilities defined in the Sortable and Drawable interfaces. public interface Sortable { void sort(); } public interface Drawable { void draw(); } Which is the correct implementation?",
+//     "answers": [
+//         "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}",
+//         "Public class DrawList extends Sortable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}",
+//         "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}",
+//         "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/ } public void draw() { /* implementation */}"
+//     ],
+//     "correctAnswers": [
+//         1,2
+//     ]
+// }
+// ]

@@ -29,45 +29,55 @@ class AccessService {
         }
     };
     static newQuestion = async (questionData) => {
-        console.log(`:question`, questionData);
+        const session = await Question.startSession();
+        session.startTransaction();
+        
         try {
-            const existingQuestion = await Question.findOne({
-                content: questionData.content,
-            }).lean();
-            if (existingQuestion) {
-                throw new BadRequestError({
-                    message: "Question already exists!",
-                    statusCode: "error_code",
-                });
-            }            
-
-            const newData = {
-                content: questionData.content,
-                image: questionData.image || { data: null, contentType: null },
-                answers: questionData.answers || [],
-                correctAnswers: questionData.correctAnswers || [],
-                answerImages: questionData.answerImages || [],
-            };
-
-            const newQuestion = await Question.create(newData);
-
-            if (newQuestion) {
-                return {
-                    code: "201",
-                    message: "Question created successfully",
-                    question: newQuestion,
-                };
-            } else {
-                throw new Error("Failed to create question");
+            for (const question of questionData) {
+                const existingQuestion = await Question.findOne({
+                    content: question.content,
+                }).lean();
+        
+                if (existingQuestion) {
+                    await session.abortTransaction(); // Hủy giao dịch nếu có câu hỏi nào bị trùng lặp
+                    session.endSession();
+                    return {
+                        status: "error",
+                        code: "403",
+                        message: `Question with content ${question.content} already exists!`,
+                    };
+                }
             }
-        } catch (error) {
-            console.error("Error creating question:", error);
+        
+            // Nếu không có câu hỏi nào bị trùng lặp, tiếp tục tạo câu hỏi mới
+            for (const question of questionData) {
+                const newData = {
+                    content: question.content,
+                    image: question.image || { data: null, contentType: null },
+                    answers: question.answers || [],
+                    correctAnswers: question.correctAnswers || [],
+                    answerImages: question.answerImages || [],
+                };
+        
+                const newQuestion = await Question.create(newData);
+        
+                if (!newQuestion) {
+                    await session.abortTransaction();
+                    session.endSession();
+                    throw new Error("Failed to create question");
+                }
+            }
+        
+            await session.commitTransaction(); // Commit giao dịch nếu tất cả câu hỏi đều hợp lệ
+            session.endSession();
             return {
-                code: "error_code",
-                message: "An error occurred while creating the question",
+                code: "201",
+                message: "All questions created successfully",
             };
+        }  finally {
         }
     };
+    
 }
 
 module.exports = AccessService;

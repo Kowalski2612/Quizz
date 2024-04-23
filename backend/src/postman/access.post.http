@@ -12,8 +12,20 @@
 POST {{url_dev}}/app/question/newQuestion
 Content-Type: application/json
 
+[
 {
-    "content": "A developer must create a DrawList class that provides capabilities defined in the Sortable and Drawable interfaces. public interface Sortable { void sort(); } public interface Drawable { void draw(); } Which is the correct implementation?",
+    "content": "2A developer must create a DrawList class that provides capabilities defined in the Sortable and Drawable interfaces. public interface Sortable { void sort(); } public interface Drawable { void draw(); } Which is the correct implementation?",
+    "answers": [
+        "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}",
+        "Public class DrawList extends Sortable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}",
+        "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}",
+        "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/ } public void draw() { /* implementation */}"
+    ],
+    "correctAnswers": [
+        "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}"
+    ]
+},{
+    "content": "1A developer must create a DrawList class that provides capabilities defined in the Sortable and Drawable interfaces. public interface Sortable { void sort(); } public interface Drawable { void draw(); } Which is the correct implementation?",
     "answers": [
         "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}",
         "Public class DrawList extends Sortable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}",
@@ -24,8 +36,7 @@ Content-Type: application/json
         "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}"
     ]
 }
-
-
+]
 
 
 
