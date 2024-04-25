@@ -1,10 +1,33 @@
 import "./dev1.css";
 import { useEffect, useState } from "react";
 import Header from "./header";
+
+// Hàm shuffle để random mảng
+function shuffle(array) {
+for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+}
+return array;
+}
+
 function Dev1() {
     const [questions, setQuestions] = useState(null);
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const currDate = new Date().toLocaleDateString();
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    const scrollToBottom = () => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    };
+
+    // Hàm random các câu trả lời
+    const shuffleAnswers = (answers) => {
+        return shuffle(answers);
+    };
+
     const handleAnswerSelect = (questionId, answerId, isCheckbox) => {
         setSelectedAnswers((prevState) => {
             // Kiểm tra nếu là checkbox
@@ -86,7 +109,12 @@ function Dev1() {
                 );
                 if (response.ok) {
                     const data = await response.json();
-                    setQuestions(data.metadata.questions);
+                    // Random các câu trả lời của mỗi câu hỏi
+                    const shuffledQuestions = data.metadata.questions.map(question => ({
+                        ...question,
+                        answers: shuffleAnswers(question.answers)
+                    }));
+                    setQuestions(shuffledQuestions);
                 } else {
                     console.error("Error fetching data:", response.statusText);
                 }
@@ -100,6 +128,45 @@ function Dev1() {
     return (
         <div className="main-container">
             <Header />
+            <button
+                    className="fixed bottom-5 right-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                    onClick={scrollToTop}
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 15l7-7 7 7"
+                        />
+                    </svg>
+                </button>
+                {/* Nút để scroll xuống cuối trang */}
+                <button
+                    className="fixed bottom-5 left-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                    onClick={scrollToBottom}
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 9l-7 7-7-7"
+                        />
+                    </svg>
+                </button>
             <div id="page" className="single">
                 <header>
                     <div className="post-date-publishable">{currDate}</div>
@@ -160,8 +227,8 @@ function Dev1() {
                                                     htmlFor={`answer-id-${answer._id}`}
                                                     className="answer"
                                                 >
-                                                    <span>{answer}</span>
                                                 </label>
+                                                    <span>{answer}</span>
                                             </div>
                                         )
                                     )}

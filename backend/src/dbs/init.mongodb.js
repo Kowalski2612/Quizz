@@ -2,7 +2,8 @@
 
 const mongoose = require("mongoose");
 const { db: {host, port, name} } = require("../configs/congif.mongdb");
-const connectString = `mongodb://${host}:${port}/${name}`;
+const connectString = `mongodb://${host}:${port}/${name}`;       // moi truong dev
+// const connectString = `mongodb://172.29.0.2:27017/questionAppDev`;  // moi truong docker
 
 const { countConnect } = require("../helpers/check.connect");
 
@@ -12,15 +13,18 @@ class Database {
 	}
 	//connect
 	connect(type = "mongodb") {
+        console.log(type)
+        console.log(this.connect)
 		if( 1 === 1 ) {
+            console.log('1')
 			mongoose.set("debug", true);
 			mongoose.set("debug", {color: true});
 		}
-
+        console.log(connectString)
 		mongoose.connect( connectString, {
 			maxPoolSize: 100,									//toi da 100 ket noi 
 		} ).then( _ => {
-			// console.log(`Connected MongoDB`, countConnect());
+			console.log(`Connected MongoDB`);
 		})
 		.catch( e => console.log(`Connect failed`) );
 	}

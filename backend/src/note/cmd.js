@@ -30,3 +30,6 @@ npm i lodash --save
 use shopDEV
 //lay ra keys
 db.keys.find()
+
+//docker 
+docker compose up -d

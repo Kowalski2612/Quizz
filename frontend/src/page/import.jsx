@@ -87,7 +87,8 @@ export default Import;
 //     "correctAnswers": [
 //        1,2,3
 //     ]
-// },{
+// },
+// {
 //     "content": "A developer must create a DrawList class that provides capabilities defined in the Sortable and Drawable interfaces. public interface Sortable { void sort(); } public interface Drawable { void draw(); } Which is the correct implementation?",
 //     "answers": [
 //         "Public class DrawList implements Sortable, Drawable { public void sort() { /*implementation*/} public void draw() { /*implementation*/}",
