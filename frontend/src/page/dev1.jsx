@@ -14,6 +14,7 @@ return array;
 function Dev1() {
     const [questions, setQuestions] = useState(null);
     const [selectedAnswers, setSelectedAnswers] = useState({});
+    const [incorrectQuestions, setIncorrectQuestions] = useState([]); // State để lưu câu hỏi sai
     const currDate = new Date().toLocaleDateString();
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -75,18 +76,25 @@ function Dev1() {
 
     const handleSubmit = () => {
         let score = 0;
+        const incorrectQuestions = [];
 
         questions.forEach((question) => {
             const selectedAnswerIds = selectedAnswers[question._id];
 
             if (!Array.isArray(selectedAnswerIds)) return;
 
-            if (selectedAnswerIds.length !== question.correctAnswers.length)
+            if (selectedAnswerIds.length !== question.correctAnswers.length) {
+                incorrectQuestions.push(question);
                 return;
+            }
 
             const isAllCorrectAnswersSelected = question.correctAnswers.every(
                 (correctAnswer) => selectedAnswerIds.includes(correctAnswer)
             );
+            if (!isAllCorrectAnswersSelected) { // Nếu câu hỏi có đáp án sai
+                incorrectQuestions.push(question); // Thêm câu hỏi vào mảng
+            }
+            
 
             if (isAllCorrectAnswersSelected) {
                 score++;
@@ -97,6 +105,9 @@ function Dev1() {
             resultContainer.innerHTML = `Your score: ${score}/${questions.length}`;
             window.scrollTo({ top: 0, behavior: "smooth" });
         }
+
+        setIncorrectQuestions(incorrectQuestions); // Lưu danh sách câu hỏi sai vào state
+        console.log(JSON.stringify(incorrectQuestions));
     };
     useEffect(() => {
         const fetchData = async () => {
@@ -183,7 +194,7 @@ function Dev1() {
                                     <span className="watupro_num">
                                         Question {index + 1}
                                     </span>
-                                    <p>{question.content}</p>
+                                    <p className={incorrectQuestions.includes(question) ? 'text-red-500' : ''}>{question.content}</p>
                                     {question.answers.map(
                                         (answer, answerIndex) => (
                                             <div

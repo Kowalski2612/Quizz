@@ -88,14 +88,14 @@ export default function Home() {
                 </div>
                 <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
                   {callsToAction.map((item) => (
-                    <a
+                    <Link
                       key={item.name}
-                      href={item.href}
+                      to={item.href}
                       className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
                     >
                       <item.icon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </Popover.Panel>
@@ -108,8 +108,8 @@ export default function Home() {
           <Link to="#" className="text-sm font-semibold leading-6 text-gray-900">
             Marketplace
           </Link>
-          <Link to="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Company
+          <Link to="/import" className="text-sm font-semibold leading-6 text-gray-900">
+          Import Data & Export
           </Link>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
