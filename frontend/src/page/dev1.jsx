@@ -135,10 +135,32 @@ function Dev1() {
         };
         fetchData();
     }, []);
-
+    const scrollToQuestion = (index) => {
+        const questionElement = document.getElementById(`question-${index}`);
+        console.log(questionElement);
+        if (questionElement) {
+            questionElement.scrollIntoView({ behavior: "smooth" });
+        }
+    };
     return (
         <div className="main-container">
             <Header />
+            <div className="question-list">
+                    <ul>
+                        {questions &&
+                            questions.map((question, index) => (
+                                <li key={index}>
+                                    <a
+                                        href={`#question-${index + 1}`}
+                                        onClick={() => scrollToQuestion(index + 1)}
+                                        className={incorrectQuestions.includes(question) ? 'text-red-500' : ''}
+                                    >
+                                        Question {index + 1}
+                                    </a>
+                                </li>
+                            ))}
+                    </ul>
+                </div>
             <button
                     className="fixed bottom-5 right-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
                     onClick={scrollToTop}
@@ -189,7 +211,7 @@ function Dev1() {
                 <div className="main-container">
                     {questions &&
                         questions.map((question, index) => (
-                            <div key={index}>
+                            <div key={index} id={`question-${index + 1}`} className="question">
                                 <div className="watu-question">
                                     <span className="watupro_num">
                                         Question {index + 1}

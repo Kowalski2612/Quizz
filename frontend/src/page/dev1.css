@@ -222,3 +222,14 @@ textarea {
 .watupro-question-choice.incorrect {
   background-color: lightcoral;
 }
+.question-list {
+  position: fixed; /* Cho phần danh sách giữ nguyên vị trí khi cuộn trang */
+  top: 0; /* Đặt vị trí ở trên cùng */
+  left: 0; /* Đặt vị trí ở bên trái */
+  width: 200px; /* Độ rộng của phần danh sách */
+  height: 100%; /* Chiều cao sẽ chiếm toàn bộ chiều cao của trang */
+  background-color: #f4f4f4; /* Màu nền */
+  padding: 20px; /* Khoảng cách đệm bên trong phần danh sách */
+  overflow-y: auto; /* Cho phép cuộn nếu nội dung quá dài */
+  border-right: 1px solid #ddd; /* Đường viền bên phải */
+}

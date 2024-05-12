@@ -74,7 +74,7 @@ function Import() {
 export default Import;
 
 // chatgpt promot
-// nhiệm vụ của bạn là format data. Hãy format theo định dạng với các dữ liệu định nghĩa, correctAnswers là số và bắt đầu từ 0
+// nhiệm vụ của bạn là format data. Hãy format theo định dạng với các dữ liệu định nghĩa, correctAnswers là số và bắt đầu từ [0]
 // [
 // {
 //     "content": "A developer must create a DrawList class that provides capabilities defined in the Sortable and Drawable interfaces. public interface Sortable { void sort(); } public interface Drawable { void draw(); } Which is the correct implementation?",
